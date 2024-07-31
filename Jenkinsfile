@@ -8,14 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            steps {
-                script {
-                    // Clonar el repositorio y construir el proyecto
-                    sh 'mvn clean package -DskipTests'
-                }
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
