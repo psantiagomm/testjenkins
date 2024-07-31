@@ -1,3 +1,11 @@
+# Etapa de construcción
+FROM maven:3.9.8-amazoncorretto-21 AS build
+
+WORKDIR /usr/src/app
+COPY . .
+RUN mvn clean package
+
+# Etapa de ejecución
 # Imagen base de Java
 FROM amazoncorretto:22-alpine
 
@@ -7,9 +15,8 @@ USER spring:spring
 VOLUME /tmp
 
 WORKDIR /app/
-# Copia el archivo JAR al contenedor
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+
+COPY --from=build /usr/src/app/target/*.jar /usr/app/app.jar
 
 #COPY watcher.sh .
 
