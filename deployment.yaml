@@ -12,12 +12,22 @@ spec:
       labels:
         app: testjenkins
     spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: testjenkins
       containers:
         - name: testjenkins
           image: testjenkins:latest
+          command: ["java"]
+          args: ["-jar", "app.jar", "--spring.config.additional-location=file:///config/*", "--spring.profiles.active=dev"]
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: false
 ---
 apiVersion: v1
 kind: Service
