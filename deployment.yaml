@@ -23,10 +23,11 @@ kind: Service
 metadata:
   name: testjenkins
 spec:
+  type: NodePort
   selector:
     app: testjenkins
   ports:
-    - protocol: TCP
-      port: 80
+    - port: 8081
       targetPort: 8080
-  type: LoadBalancer
+      protocol: TCP
+      nodePort: 30001
