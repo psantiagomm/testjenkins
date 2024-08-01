@@ -16,7 +16,7 @@ VOLUME /tmp
 
 WORKDIR /app/
 
-COPY --from=build /usr/src/app/target/*.jar /usr/app/app.jar
+COPY --from=build /usr/src/app/target/*.jar /app/app.jar
 
 #COPY watcher.sh .
 
