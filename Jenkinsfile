@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = "192.168.49.2:5000"
+        DOCKER_REGISTRY = "localhost:5000"
         IMAGE_NAME = 'testjenkins'
         IMAGE_TAG = "latest"
     }

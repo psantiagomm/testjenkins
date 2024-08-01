@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: testjenkins
-          image: 192.168.49.2:5000/testjenkins:latest
+          image: localhost:5000/testjenkins:latest
           ports:
             - containerPort: 8080
 ---
