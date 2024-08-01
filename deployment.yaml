@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: testjenkins
-          image: localhost:5000/testjenkins:latest
+          image: testjenkins:latest
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
