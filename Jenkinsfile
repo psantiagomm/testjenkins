@@ -31,7 +31,7 @@ pipeline {
                 script {
                     // Actualizar el archivo de despliegue con el nuevo tag
                     sh """
-                    sed -i 's|image: testjenkins:.*|image: ${IMAGE_FULL_NAME}|' deployment.yaml
+                    sed -i 's|image: testjenkins:.*|image: ${DOCKER_REGISTRY}/${IMAGE_FULL_NAME}|' deployment.yaml
                     """
 
                     sh 'cat deployment.yaml'
