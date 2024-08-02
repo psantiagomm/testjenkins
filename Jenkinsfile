@@ -10,6 +10,13 @@ pipeline {
     }
 
     stages {
+        stage('Approval') {
+            steps {
+                script {
+                    input message: 'Do you want to proceed to the deploy stage?', ok: 'Yes, deploy!'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
