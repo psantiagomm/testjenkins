@@ -13,7 +13,13 @@ pipeline {
         stage('Approval') {
             steps {
                 script {
-                    input message: 'Do you want to proceed to the deploy stage?', ok: 'Yes, deploy!'
+                    def approver = input(
+                        message: 'Do you want to proceed?',
+                        ok: 'Yes',
+                        submitter: 'admin'
+                    )
+
+                    echo "Approved by: ${approver}"
                 }
             }
         }
