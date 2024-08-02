@@ -3,11 +3,11 @@ FROM maven:3.9.8-amazoncorretto-21 AS build
 
 WORKDIR /app/
 
-COPY pom.xml ./
+COPY ../pom.xml ./
 RUN mkdir -p /root/.m2 && mvn -B dependency:resolve
 
 # Copiar el código fuente de la aplicación
-COPY src ./src
+COPY ../src ./src
 
 RUN mvn -B package -DskipTests
 
