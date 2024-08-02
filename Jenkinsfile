@@ -37,7 +37,9 @@ pipeline {
                     sh 'cat deployment.yaml'
                     
                     // Aplicar el despliegue a Minikube
-                    sh 'kubectl apply -f deployment.yaml --set JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}'
+                    sh "kubectl set env deployment/testjenkins JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}"
+
+                    sh 'kubectl apply -f deployment.yaml'
                 }
             }
         }
