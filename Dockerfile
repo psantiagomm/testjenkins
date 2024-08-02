@@ -1,9 +1,15 @@
 # Etapa de construcción
 FROM maven:3.9.8-amazoncorretto-21 AS build
 
-WORKDIR /usr/src/app
-COPY . .
-RUN mvn clean package
+WORKDIR /app/
+
+COPY pom.xml ./
+RUN mkdir -p /root/.m2 && mvn -B dependency:resolve
+
+# Copiar el código fuente de la aplicación
+COPY src ./src
+
+RUN mvn -B package -DskipTests
 
 # Etapa de ejecución
 # Imagen base de Java
@@ -16,7 +22,7 @@ VOLUME /tmp
 
 WORKDIR /app/
 
-COPY --from=build /usr/src/app/target/*.jar /app/app.jar
+COPY --from=build /app/target/*.jar /app/app.jar
 
 #COPY watcher.sh .
 
