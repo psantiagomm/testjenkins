@@ -39,6 +39,18 @@ pipeline {
                 }
             }
         }
+        stage('Update Secret') {
+            environment {
+                TESTJENKINS_MATER_PASS = credentials('TESTJENKINS_MATER_PASS') // ID de la credencial del secreto
+            }
+            steps {
+                script {
+
+                    def masterPass = env.TESTJENKINS_MATER_PASS_PSW
+                    
+                }
+            }
+        }
         stage('Deploy to Kubernetes') {
             steps {
                 script {
@@ -50,7 +62,7 @@ pipeline {
                     sh 'cat deployment.yaml'
                     
                     // Aplicar el despliegue a Minikube
-                    sh "kubectl set env deployment/testjenkins JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}"
+                    sh "kubectl set env deployment/testjenkins JASYPT_ENCRYPTOR_PASSWORD=${masterPass}"
 
                     sh 'kubectl apply -f deployment.yaml'
                 }
