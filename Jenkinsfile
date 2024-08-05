@@ -48,6 +48,10 @@ pipeline {
 
                     def masterPass = env.TESTJENKINS_MATER_PASS_PSW
                     
+                    sh(script: "echo $TESTJENKINS_MATER_PASS")
+                    sh(script: "echo $masterPass")
+                    sh(script: "echo 'FIN MASTER:PASS'")
+                    
                 }
             }
         }
