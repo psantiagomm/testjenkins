@@ -12,8 +12,11 @@ pipeline {
 
                     sh '''
                         #!/bin/bash
+                        env
                         echo "Cual sera la clave maestra"
                         echo ${TESTJENKINS_MATER_PASS}
+                        echo "Cual sera la clave maestra 2"
+                        echo ${env.TESTJENKINS_MATER_PASS_PSW}
                     '''
 
                     sh '''
