@@ -48,10 +48,6 @@ pipeline {
 					
 					def masterPass = env.TESTJENKINS_MATER_PASS_PSW
                     
-                    sh(script: "echo $TESTJENKINS_MATER_PASS")
-                    sh(script: "echo $masterPass")
-                    sh(script: "echo 'FIN MASTER:PASS'")
-                    
                     // Actualizar el archivo de despliegue con el nuevo tag
                     sh """
                     sed -i 's|image: testjenkins:.*|image: ${DOCKER_REGISTRY}/${IMAGE_FULL_NAME}|' deployment.yaml
