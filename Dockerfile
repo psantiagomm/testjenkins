@@ -14,8 +14,13 @@ RUN mvn -B package -DskipTests
 # Etapa de ejecución
 # Imagen base de Java
 FROM amazoncorretto:22-alpine
+USER root
 
 COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
+
+RUN apk add file
+RUN apk add enca
+RUN add libc-bin
 
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
@@ -29,9 +34,6 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV JAVA_OPTS="-Dfile.encoding=UTF-8"
 
-RUN apk add file
-RUN apk add enca
-RUN add libc-bin
 
 COPY --from=build /app/target/*.jar /app/app.jar
 
