@@ -3,18 +3,11 @@ pipeline {
 
     stages {
         stage('Update configmap') {
-            environment {
-                TESTJENKINS_MATER_PASS = credentials('TESTJENKINS_MATER_PASS') // ID de la credencial del secreto
-            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'TESTJENKINS_MATER_PASS', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER')]) {
                     // Ejecuta el script .sh con la credencial en el entorno
                     sh '''
                         #!/bin/bash
-
-                        export RESILIENCE_PROPERTIES=${RESILIENCE_PROPERTIES}
-                        export APP_PASSWORD=${APP_PASSWORD}
-                        export REDIS_PASSWORD=${REDIS_PASSWORD}
                         chmod +x ./scripts/update-properties-01-configmap.sh
                         ./scripts/update-properties-01-configmap.sh
                     '''
