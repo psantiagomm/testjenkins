@@ -21,7 +21,7 @@ pipeline {
 
                     sh '''
                         #!/bin/bash
-                        export MASTER_PASS=${masterPass}
+                        export MASTER_PASS=${TESTJENKINS_MATER_PASS}
                         export APPLICATION_PROPERTIES=${APPLICATION_PROPERTIES}
                         export RESILIENCE_PROPERTIES=${RESILIENCE_PROPERTIES}
                         export APP_PASSWORD=${APP_PASSWORD}
