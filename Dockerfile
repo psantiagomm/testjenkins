@@ -19,9 +19,7 @@ USER root
 COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
 
 RUN yum update -y && \
-    yum install -y file && \
-    yum install -y enca && \
-    yum install -y libc-bin
+    yum install -y file glibc-common
 
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
