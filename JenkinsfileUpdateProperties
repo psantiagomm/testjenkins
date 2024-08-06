@@ -5,6 +5,7 @@ pipeline {
         stage('Update configmap') {
             steps {
                 script {
+                    sh 'chmod +x ./scripts/update-properties-01-configmap.sh'
                     sh './scripts/update-properties-01-configmap.sh'
                 }
             }
@@ -12,6 +13,7 @@ pipeline {
         stage('Wait') {
             steps {
                 script {
+                    sh 'chmod +x ./scripts/update-properties-02-wait.sh'
                     sh './scripts/update-properties-02-wait.sh'
                 }
             }
@@ -19,6 +21,7 @@ pipeline {
         stage('Refresh pods') {
             steps {
                 script {
+                    sh 'chmod +x ./scripts/update-properties-03-refresh-pods.sh'
                     sh './scripts/update-properties-03-refresh-pods.sh'
                 }
             }
