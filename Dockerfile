@@ -20,7 +20,7 @@ COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
 RUN chmod +x /usr/local/bin/handle-charset.sh
 
 RUN apk update && \
-    apk add --no-cache musl-iconv
+    apk add --no-cache giconv
 
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
