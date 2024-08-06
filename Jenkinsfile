@@ -44,21 +44,13 @@ pipeline {
                 TESTJENKINS_MATER_PASS = credentials('TESTJENKINS_MATER_PASS') // ID de la credencial del secreto
             }
             steps {
-                script {
-					
-					def masterPass = env.TESTJENKINS_MATER_PASS_PSW
-                    
-                    // Actualizar el archivo de despliegue con el nuevo tag
-                    sh """
-                    sed -i 's|image: testjenkins:.*|image: ${DOCKER_REGISTRY}/${IMAGE_FULL_NAME}|' deployment.yaml
-                    """
-
-                    sh 'cat deployment.yaml'
-                    
-                    // Aplicar el despliegue a Minikube
-                    sh "kubectl set env deployment/testjenkins JASYPT_ENCRYPTOR_PASSWORD=${masterPass}"
-
-                    sh 'kubectl apply -f deployment.yaml'
+                withCredentials([usernamePassword(credentialsId: 'TESTJENKINS_MATER_PASS', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER')]) {
+                    // Ejecuta el script .sh con la credencial en el entorno
+                    sh '''
+                        #!/bin/bash
+                        chmod +x ./scripts/deploy-01-deploy.sh
+                        ./scripts/deploy-01-deploy.sh
+                    '''
                 }
             }
         }
