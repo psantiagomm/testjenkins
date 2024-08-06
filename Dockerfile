@@ -19,8 +19,27 @@ USER root
 COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
 RUN chmod +x /usr/local/bin/handle-charset.sh
 
-RUN apk update && \
-    apk add --no-cache giconv
+# Añadir el repositorio de glibc y la clave pública
+RUN apk --no-cache add \
+    wget \
+    gnupg \
+    && wget -O /etc/apk/keys/sgerrand.rsa.pub \
+    https://github.com/sgerrand/alpine-pkg-glibc/releases/download/20210816-r0/sgerrand.rsa.pub \
+    && wget -O glibc-2.33-r0.apk \
+    https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.33-r0/glibc-2.33-r0.apk \
+    && apk add --no-cache glibc-2.33-r0.apk \
+    && rm glibc-2.33-r0.apk \
+    && wget -O glibc-bin-2.33-r0.apk \
+    https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.33-r0/glibc-bin-2.33-r0.apk \
+    && apk add --no-cache glibc-bin-2.33-r0.apk \
+    && rm glibc-bin-2.33-r0.apk \
+    && wget -O glibc-i18n-2.33-r0.apk \
+    https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.33-r0/glibc-i18n-2.33-r0.apk \
+    && apk add --no-cache glibc-i18n-2.33-r0.apk \
+    && rm glibc-i18n-2.33-r0.apk
+
+# Instalar 'file' para herramientas adicionales si es necesario
+RUN apk update && apk add --no-cache file
 
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
