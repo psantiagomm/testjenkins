@@ -19,7 +19,7 @@ $(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
 $(echo "${RESILIENCE_PROPERTIES}" | sed 's/^/    /')
 EOF
 
-#cat configmap.yaml
+cat configmap.yaml
 
 # Aplicar el ConfigMap en Minikube
 kubectl apply -f configmap.yaml
