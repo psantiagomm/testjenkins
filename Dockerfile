@@ -13,7 +13,7 @@ RUN mvn -B package -DskipTests
 
 # Etapa de ejecución
 # Imagen base de Java
-FROM amazoncorretto:22-alpine
+FROM amazoncorretto:21
 USER root
 
 COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
