@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -i 's|image: testjenkins:.*|image: $DOCKER_REGISTRY/$IMAGE_FULL_NAME|' deployment.yaml
+sed -i "s|image: testjenkins:.*|image: ${DOCKER_REGISTRY}/${IMAGE_FULL_NAME}|" deployment.yaml
 
 cat deployment.yaml
 
