@@ -12,7 +12,6 @@ pipeline {
                     sh '''
                         #!/bin/bash
 
-                        export APPLICATION_PROPERTIES=${APPLICATION_PROPERTIES}
                         export RESILIENCE_PROPERTIES=${RESILIENCE_PROPERTIES}
                         export APP_PASSWORD=${APP_PASSWORD}
                         export REDIS_PASSWORD=${REDIS_PASSWORD}
