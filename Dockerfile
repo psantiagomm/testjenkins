@@ -3,11 +3,11 @@ FROM maven:3.9.8-amazoncorretto-21 AS build
 
 WORKDIR /app/
 
-COPY ../pom.xml ./
+COPY ./pom.xml ./
 RUN mkdir -p /root/.m2 && mvn -B dependency:resolve
 
 # Copiar el código fuente de la aplicación
-COPY ../src ./src
+COPY ./src ./src
 
 RUN mvn -B package -DskipTests
 
@@ -26,6 +26,12 @@ WORKDIR /app
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV JAVA_OPTS="-Dfile.encoding=UTF-8"
+
+RUN apk add file
+RUN apk add enca
+RUN add libc-bin
+
+COPY handle-charset.sh /usr/local/bin/handle-charset.sh
 
 COPY --from=build /app/target/*.jar /app/app.jar
 
