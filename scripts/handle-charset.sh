@@ -12,9 +12,7 @@ for file in "$CONFIG_DIR"/*; do
         # Si el charset no es UTF-8, conviértelo
         if [ "$CHARSET" != "utf-8" ]; then
             echo "Convirtiendo $file de $CHARSET a UTF-8"
-            mv "$file" "$file.bak"
-            iconv -f "$CHARSET" -t UTF-8 "$file.bak" -o "$file"
-            rm "$file.bak"
+            recode  ..utf-8 "$file"
         fi
     fi
 done
