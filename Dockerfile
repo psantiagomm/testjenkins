@@ -31,7 +31,7 @@ RUN apk add file
 RUN apk add enca
 RUN add libc-bin
 
-COPY handle-charset.sh /usr/local/bin/handle-charset.sh
+COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
 
 COPY --from=build /app/target/*.jar /app/app.jar
 
