@@ -20,7 +20,7 @@ spec:
         - name: testjenkins
           image: testjenkins:latest
           command: ["java"]
-          args: ["-jar", "app.jar", "--spring.config.additional-location=file:///config/", "--spring.profiles.active=dev", "--jasypt.encryptor.password=${JASYPT_ENCRYPTOR_PASSWORD}"]
+          args: ["-jar", "-Dfile.encoding=UTF-8", "app.jar", "--spring.config.additional-location=file:///config/", "--spring.profiles.active=dev", "--jasypt.encryptor.password=${JASYPT_ENCRYPTOR_PASSWORD}"]
           ports:
             - containerPort: 8080
           imagePullPolicy: Always

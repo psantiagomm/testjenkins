@@ -20,7 +20,12 @@ USER spring:spring
 
 VOLUME /tmp
 
-WORKDIR /app/
+WORKDIR /app
+
+# Establecer la codificación por defecto en UTF-8
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV JAVA_OPTS="-Dfile.encoding=UTF-8"
 
 COPY --from=build /app/target/*.jar /app/app.jar
 
@@ -34,4 +39,4 @@ EXPOSE 8080
 #RUN apk add --no-cache wget
 
 #microservicio cuando se ejecute el contenedor
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-Dfile.encoding=UTF-8", "-jar", "app.jar"]
