@@ -18,9 +18,10 @@ USER root
 
 COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
 
-RUN apk add file
-RUN apk add enca
-RUN add libc-bin
+RUN yum update -y && \
+    yum install -y file && \
+    yum install -y enca && \
+    yum install -y libc-bin
 
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
