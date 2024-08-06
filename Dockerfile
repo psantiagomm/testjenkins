@@ -17,6 +17,7 @@ FROM amazoncorretto:22-alpine
 USER root
 
 COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
+RUN chmod +x /usr/local/bin/handle-charset.sh
 
 RUN apk update && \
     apk add --no-cache musl-iconv
