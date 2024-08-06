@@ -13,13 +13,13 @@ RUN mvn -B package -DskipTests
 
 # Etapa de ejecución
 # Imagen base de Java
-FROM amazoncorretto:21
+FROM amazoncorretto:22-alpine
 USER root
 
 COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
 
-RUN yum update -y && \
-    yum install -y file glibc-common shadow-utils
+RUN apk update && \
+    apk add --no-cache musl-iconv
 
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
