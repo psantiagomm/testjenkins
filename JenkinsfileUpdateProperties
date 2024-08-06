@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Update configmap') {
+            steps {
+                script {
+                    sh './scripts/update-properties-01-configmap.sh'
+                }
+            }
+        }
+        stage('Wait') {
+            steps {
+                script {
+                    sh './scripts/update-properties-02-wait.sh'
+                }
+            }
+        }
+        stage('Refresh pods') {
+            steps {
+                script {
+                    sh './scripts/update-properties-03-refresh-pods.sh'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Update properties completed successfully!'
+        }
+        failure {
+            echo 'Update properties failed!'
+        }
+    }
+}
