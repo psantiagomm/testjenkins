@@ -16,7 +16,7 @@ $(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
     app.password=ENC($($JASYPT_SCRIPT input="$APP_PASSWORD" password="$MASTER_PASS" $JASYPT_CONFIG | tail -n 3 | head -n 1))
 
   resilience-dev.yaml: |
-$(echo "${RESILIENCE}" | sed 's/^/    /')
+$(echo "${RESILIENCE_PROPERTIES}" | sed 's/^/    /')
 EOF
 
 cat configmap.yaml
