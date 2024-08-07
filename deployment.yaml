@@ -27,7 +27,7 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /config
-              readOnly: true
+              readOnly: false
 ---
 apiVersion: v1
 kind: Service
