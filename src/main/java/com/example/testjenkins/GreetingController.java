@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.testjenkins.config.Messages;
+
 @RestController
 @RefreshScope
 public class GreetingController {
@@ -30,6 +32,9 @@ public class GreetingController {
 	@Autowired
     private ConfigurableEnvironment env;
 	
+	@Autowired
+	Messages messages;
+	
 	private final AtomicLong counter = new AtomicLong();
 	
 	@GetMapping("/greeting")
@@ -41,6 +46,7 @@ public class GreetingController {
 	public Map<String, String> env() {
 		Map<String, String> properties = new HashMap<>();
 		properties.put("jasyptPass", jasyptPass);
+		properties.put("app.message", messages.getKey("app.message"));
 		for (PropertySource<?> propertySource : env.getPropertySources()) {
             System.out.println("Source: " + propertySource.getName());
             if (propertySource.getSource() instanceof java.util.Map) {
