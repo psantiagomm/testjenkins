@@ -47,6 +47,8 @@ public class GreetingController {
 		Map<String, String> properties = new HashMap<>();
 		properties.put("jasyptPass", jasyptPass);
 		properties.put("app.message", messages.getKey("app.message"));
+		properties.put("app.message.override", messages.getKey("app.message"));
+		
 		for (PropertySource<?> propertySource : env.getPropertySources()) {
             System.out.println("Source: " + propertySource.getName());
             if (propertySource.getSource() instanceof java.util.Map) {
