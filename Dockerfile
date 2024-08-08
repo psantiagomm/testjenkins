@@ -31,7 +31,6 @@ WORKDIR /app
 
 
 COPY --from=build /app/target/*.jar /app/app.jar
-COPY ./application.properties /config2/application.properties
 
 #COPY watcher.sh .
 
