@@ -3,11 +3,11 @@ FROM maven:3.9.8-amazoncorretto-21 AS build
 
 WORKDIR /app/
 
-COPY ./pom.xml ./
+COPY ../pom.xml ./
 RUN mkdir -p /root/.m2 && mvn -B dependency:resolve
 
 # Copiar el código fuente de la aplicación
-COPY ./src ./src
+COPY ../src ./src
 
 RUN mvn -B package -DskipTests
 
@@ -15,9 +15,6 @@ RUN mvn -B package -DskipTests
 # Imagen base de Java
 FROM amazoncorretto:22-alpine
 USER root
-
-COPY ./scripts/handle-charset.sh /usr/local/bin/handle-charset.sh
-RUN chmod +x /usr/local/bin/handle-charset.sh
 
 # Instalar 'file' para herramientas adicionales si es necesario
 RUN apk update && apk add --no-cache file recode
