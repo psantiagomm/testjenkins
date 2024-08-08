@@ -14,7 +14,8 @@ data:
 $(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
     app.redis.password=ENC($($JASYPT_SCRIPT input="$REDIS_PASSWORD" password="$MASTER_PASS" $JASYPT_CONFIG | tail -n 3 | head -n 1))
     app.password=ENC($($JASYPT_SCRIPT input="$APP_PASSWORD" password="$MASTER_PASS" $JASYPT_CONFIG | tail -n 3 | head -n 1))
-
+  messages.properties: |
+$(echo "${MESSAGES_PROPERTIES}" | sed 's/^/    /')
   resilience-dev.yaml: |
 $(echo "${RESILIENCE_PROPERTIES}" | sed 's/^/    /')
 EOF
