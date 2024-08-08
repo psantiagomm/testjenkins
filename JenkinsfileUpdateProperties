@@ -9,6 +9,7 @@ pipeline {
                     sh '''
                         #!/bin/bash
                         chmod +x ./scripts/update-properties-01-configmap.sh
+                        cat ./scripts/update-properties-01-configmap.sh
                         ./scripts/update-properties-01-configmap.sh
                     '''
                 }
