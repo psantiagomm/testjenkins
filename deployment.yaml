@@ -31,7 +31,6 @@ spec:
           env:
             - name: PROPERTIES_PATH
               value: file:///config/
-			
 ---
 apiVersion: v1
 kind: Service
