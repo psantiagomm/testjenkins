@@ -25,7 +25,7 @@ public class CustomMessageSourceConfiguration {
 			StringBuilder base = new StringBuilder("");
 			base.append(env.getProperty(AppConstants.PROPERTIES_PATH));
 			base.append("/messages");
-			messageSource.setBasenames("classpath:messages", base.toString());
+			messageSource.setBasenames(base.toString(), "classpath:messages");
 		} else {
 			messageSource.setBasename("classpath:messages");
 		}
