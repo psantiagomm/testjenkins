@@ -8,9 +8,9 @@ pipeline {
                     // Ejecuta el script .sh con la credencial en el entorno
                     sh '''
                         #!/bin/bash
-                        chmod +x ./scripts/update-properties-01-configmap.sh
-                        cat ./scripts/update-properties-01-configmap.sh
-                        ./scripts/update-properties-01-configmap.sh
+                        chmod +x ./deploy/scripts/update-properties-01-configmap.sh
+                        cat ./deploy/scripts/update-properties-01-configmap.sh
+                        ./deploy/scripts/update-properties-01-configmap.sh
                     '''
                 }
             }
@@ -18,16 +18,16 @@ pipeline {
         stage('Wait') {
             steps {
                 script {
-                    sh 'chmod +x ./scripts/update-properties-02-wait.sh'
-                    sh './scripts/update-properties-02-wait.sh'
+                    sh 'chmod +x ./deploy/scripts/update-properties-02-wait.sh'
+                    sh './deploy/scripts/update-properties-02-wait.sh'
                 }
             }
         }
         stage('Refresh pods') {
             steps {
                 script {
-                    sh 'chmod +x ./scripts/update-properties-03-refresh-pods.sh'
-                    sh './scripts/update-properties-03-refresh-pods.sh'
+                    sh 'chmod +x ./deploy/scripts/update-properties-03-refresh-pods.sh'
+                    sh './deploy/scripts/update-properties-03-refresh-pods.sh'
                 }
             }
         }
