@@ -4,9 +4,9 @@ REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWO
 APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $APP_PASSWORD)
 
 MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed '2,$ s/^/    /')
-RESILIENCE_PROPERTIES=$(sh ./deploy/scripts/normalize.sh -p $RESILIENCE_PROPERTIES)
+#RESILIENCE_PROPERTIES=$(sh ./deploy/scripts/normalize.sh -p $RESILIENCE_PROPERTIES)
 APPLICATION_PROPERTIES2=$(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
-APPLICATION_PROPERTIES3=$(sh ./deploy/scripts/normalize.sh -p $APPLICATION_PROPERTIES)
+APPLICATION_PROPERTIES3=$(echo "${APPLICATION_PROPERTIES}" | ./deploy/scripts/normalize.sh)
 
 echo "Original"
 echo $APPLICATION_PROPERTIES
