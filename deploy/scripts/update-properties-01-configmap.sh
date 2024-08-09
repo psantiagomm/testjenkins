@@ -14,7 +14,7 @@ metadata:
   name: testjenkins
 data:
   application.properties: |
-$(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
+    $(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
     app.redis.password=$REDIS_PASSWORD
     app.password=$APP_PASSWORD
   messages.properties: |
