@@ -30,6 +30,6 @@ cat configmap.yaml
 
 
 # Aplicar el ConfigMap en Minikube
-# kubectl apply -f configmap.yaml
+kubectl apply -f configmap.yaml
 
 rm configmap.yaml
