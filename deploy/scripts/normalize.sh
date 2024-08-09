@@ -11,7 +11,7 @@ while getopts "p:" opt; do
   esac
 done
 
-resultado=$(echo "${p}" | sed '2,$ s/^/    /')
+resultado=$(echo "${p}" | sed 's/^/    /')
 
 echo $resultado
 
