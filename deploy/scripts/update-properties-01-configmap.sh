@@ -3,7 +3,6 @@
 REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
 APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $APP_PASSWORD)
 
-APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/^/    /2g')
 MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed 's/^/    /2g')
 RESILIENCE_PROPERTIES=$(echo "$RESILIENCE_PROPERTIES" | sed 's/^/    /2g')
 
@@ -15,7 +14,7 @@ metadata:
   name: testjenkins
 data:
   application.properties: |
-    $APPLICATION_PROPERTIES
+$(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
     app.redis.password=$REDIS_PASSWORD
     app.password=$APP_PASSWORD
   messages.properties: |
