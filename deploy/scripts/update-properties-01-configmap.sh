@@ -9,8 +9,8 @@ echo "La contraseña es $passencriptado"
 APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/^/    /2g')
 
 sed -e 's/\${DB_HOST}/${DB_HOST}/g' \
-                        -e 's/\$APPLICATION_PROPERTIES/$APPLICATION_PROPERTIES/g' \
-                        -e 's/\$REDIS_PASSWORD/$REDIS_PASSWORD/g' \
+                        -e 's/\$APPLICATION_PROPERTIES/${APPLICATION_PROPERTIES}/g' \
+                        -e 's/\$REDIS_PASSWORD/${REDIS_PASSWORD}/g' \
                         deploy/configmap-template.yaml > configmap.yaml
 
 cat configmap.yaml
