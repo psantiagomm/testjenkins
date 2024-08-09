@@ -4,10 +4,10 @@ metadata:
   name: testjenkins
 data:
   application.properties: |
-    $APPLICATION_PROPERTIES
-    app.redis.password=$REDIS_PASSWORD
-    app.password=$APP_PASSWORD
+    {{APPLICATION_PROPERTIES}}
+    app.redis.password={{REDIS_PASSWORD}}
+    app.password={{APP_PASSWORD}}
   messages.properties: |
-    $MESSAGES_PROPERTIES
+    {{MESSAGES_PROPERTIES}}
   resilience-dev.yaml: |
-    $RESILIENCE_PROPERTIES
+    {{RESILIENCE_PROPERTIES}}
