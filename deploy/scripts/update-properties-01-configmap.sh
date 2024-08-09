@@ -1,21 +1,11 @@
 #!/bin/bash
 
-JASYPT_CONFIG="saltGeneratorClassName=org.jasypt.salt.RandomSaltGenerator stringOutputType=base64 algorithm=PBEWITHHMACSHA512ANDAES_256 ivGeneratorClassName=org.jasypt.iv.RandomIvGenerator"
-JASYPT_SCRIPT="/var/jenkins_home/jasypt/bin/encrypt.sh"
-
 REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
-echo "La contraseña es $passencriptado"
+APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $APP_PASSWORD)
 
 APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/^/    /2g')
-APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/[&/\]/\\&/g')
-
-echo "La variable application es $APPLICATION_PROPERTIES"
-
-sed -e "s|{{APPLICATION_PROPERTIES}}|${APPLICATION_PROPERTIES}|g" \
-                        -e "s|{{REDIS_PASSWORD}}|$REDIS_PASSWORD|g" \
-                        deploy/configmap-template.yaml > configmap.yaml
-
-cat configmap.yaml
+MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed 's/^/    /2g')
+RESILIENCE_PROPERTIES=$(echo "$RESILIENCE_PROPERTIES" | sed 's/^/    /2g')
 
 # Crear el archivo configmap.yaml con los valores de los parámetros
 cat <<EOF > configmap.yaml
@@ -25,14 +15,17 @@ metadata:
   name: testjenkins
 data:
   application.properties: |
-$(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
-    app.redis.password=ENC($($JASYPT_SCRIPT input="$REDIS_PASSWORD" password="$MASTER_PASS" $JASYPT_CONFIG | tail -n 3 | head -n 1))
-    app.password=ENC($($JASYPT_SCRIPT input="$APP_PASSWORD" password="$MASTER_PASS" $JASYPT_CONFIG | tail -n 3 | head -n 1))
+    $APPLICATION_PROPERTIES
+    app.redis.password=$REDIS_PASSWORD
+    app.password=$APP_PASSWORD
   messages.properties: |
-$(echo "${MESSAGES_PROPERTIES}" | sed 's/^/    /')
+    $MESSAGES_PROPERTIES
   resilience-dev.yaml: |
-$(echo "${RESILIENCE_PROPERTIES}" | sed 's/^/    /')
+    $RESILIENCE_PROPERTIES
 EOF
+
+echo "El configmap generado es"
+cat configmap.yaml
 
 
 
