@@ -7,6 +7,7 @@ REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWO
 echo "La contraseña es $passencriptado"
 
 APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/^/    /2g')
+APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/[&/\]/\\&/g')
 
 sed -e "s/{{APPLICATION_PROPERTIES}}/${APPLICATION_PROPERTIES}/g" \
                         -e "s/{{REDIS_PASSWORD}}/$REDIS_PASSWORD/g" \
