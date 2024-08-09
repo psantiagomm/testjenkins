@@ -3,8 +3,17 @@
 JASYPT_CONFIG="saltGeneratorClassName=org.jasypt.salt.RandomSaltGenerator stringOutputType=base64 algorithm=PBEWITHHMACSHA512ANDAES_256 ivGeneratorClassName=org.jasypt.iv.RandomIvGenerator"
 JASYPT_SCRIPT="/var/jenkins_home/jasypt/bin/encrypt.sh"
 
-passencriptado=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
+REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
 echo "La contraseña es $passencriptado"
+
+APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/^/    /2g')
+
+sed -e 's/\${DB_HOST}/${DB_HOST}/g' \
+                        -e 's/\$APPLICATION_PROPERTIES/$APPLICATION_PROPERTIES/g' \
+                        -e 's/\$REDIS_PASSWORD/$REDIS_PASSWORD/g' \
+                        deploy/configmap-template.yaml > configmap.yaml
+
+cat configmap.yaml
 
 # Crear el archivo configmap.yaml con los valores de los parámetros
 cat <<EOF > configmap.yaml
@@ -23,9 +32,9 @@ $(echo "${MESSAGES_PROPERTIES}" | sed 's/^/    /')
 $(echo "${RESILIENCE_PROPERTIES}" | sed 's/^/    /')
 EOF
 
-cat configmap.yaml
+
 
 # Aplicar el ConfigMap en Minikube
-kubectl apply -f configmap.yaml
+# kubectl apply -f configmap.yaml
 
 rm configmap.yaml
