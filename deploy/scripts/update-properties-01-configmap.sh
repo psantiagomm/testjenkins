@@ -3,7 +3,7 @@
 JASYPT_CONFIG="saltGeneratorClassName=org.jasypt.salt.RandomSaltGenerator stringOutputType=base64 algorithm=PBEWITHHMACSHA512ANDAES_256 ivGeneratorClassName=org.jasypt.iv.RandomIvGenerator"
 JASYPT_SCRIPT="/var/jenkins_home/jasypt/bin/encrypt.sh"
 
-passencriptado=$(sh ./encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
+passencriptado=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
 echo "La contraseña es $passencriptado"
 
 # Crear el archivo configmap.yaml con los valores de los parámetros
