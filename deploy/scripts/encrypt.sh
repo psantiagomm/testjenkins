@@ -16,7 +16,7 @@ while getopts "m:p:" opt; do
   esac
 done
 
-resultado="ENC($($JASYPT_SCRIPT input="$p" password="$m" $JASYPT_CONFIG | tail -n 3 | head -n 1))"
+result="ENC($($JASYPT_SCRIPT input="$p" password="$m" $JASYPT_CONFIG | tail -n 3 | head -n 1))"
 
-echo $resultado
+echo $result
 

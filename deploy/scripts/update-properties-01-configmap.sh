@@ -3,9 +3,9 @@
 REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
 APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $APP_PASSWORD)
 
-MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed '2,$ s/^/    /')
-RESILIENCE_PROPERTIES=$(echo "$RESILIENCE_PROPERTIES" | sed '2,$ s/^/    /')
-APPLICATION_PROPERTIES=$(echo "${APPLICATION_PROPERTIES}" | sed '2,$ s/^/    /')
+MESSAGES_PROPERTIES=$(sh ./deploy/scripts/normalize.sh -p $MESSAGES_PROPERTIES)
+RESILIENCE_PROPERTIES=$(sh ./deploy/scripts/normalize.sh -p $RESILIENCE_PROPERTIES)
+APPLICATION_PROPERTIES=$(sh ./deploy/scripts/normalize.sh -p $APPLICATION_PROPERTIES)
 
 # Crear el archivo configmap.yaml con los valores de los parámetros
 cat <<EOF > configmap.yaml
