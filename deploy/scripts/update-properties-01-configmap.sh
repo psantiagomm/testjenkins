@@ -5,7 +5,7 @@ APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $APP_PASSWORD)
 
 MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed 's/^/    /2g')
 RESILIENCE_PROPERTIES=$(echo "$RESILIENCE_PROPERTIES" | sed 's/^/    /2g')
-APPLICATION_PROPERTIES=$(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /2g')
+APPLICATION_PROPERTIES=$(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /g')
 
 # Crear el archivo configmap.yaml con los valores de los parámetros
 cat <<EOF > configmap.yaml
