@@ -11,8 +11,8 @@ APPLICATION_PROPERTIES=$(echo "$APPLICATION_PROPERTIES" | sed 's/[&/\]/\\&/g')
 
 echo "La variable application es $APPLICATION_PROPERTIES"
 
-sed -e "s/{{APPLICATION_PROPERTIES}}/${APPLICATION_PROPERTIES}/g" \
-                        -e "s/{{REDIS_PASSWORD}}/$REDIS_PASSWORD/g" \
+sed -e "s|{{APPLICATION_PROPERTIES}}|${APPLICATION_PROPERTIES}|g" \
+                        -e "s|{{REDIS_PASSWORD}}|$REDIS_PASSWORD|g" \
                         deploy/configmap-template.yaml > configmap.yaml
 
 cat configmap.yaml
