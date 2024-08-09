@@ -5,6 +5,7 @@ APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $APP_PASSWORD)
 
 MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed 's/^/    /2g')
 RESILIENCE_PROPERTIES=$(echo "$RESILIENCE_PROPERTIES" | sed 's/^/    /2g')
+APPLICATION_PROPERTIES=$(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
 
 # Crear el archivo configmap.yaml con los valores de los parámetros
 cat <<EOF > configmap.yaml
@@ -14,7 +15,7 @@ metadata:
   name: testjenkins
 data:
   application.properties: |
-    $(echo "${APPLICATION_PROPERTIES}" | sed 's/^/    /')
+    $APPLICATION_PROPERTIES
     app.redis.password=$REDIS_PASSWORD
     app.password=$APP_PASSWORD
   messages.properties: |
