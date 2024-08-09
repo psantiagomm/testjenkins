@@ -1,7 +1,7 @@
 #!/bin/bash
 
-REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $REDIS_PASSWORD)
-APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m $MASTER_PASS -p $APP_PASSWORD)
+REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m "$MASTER_PASS" -p "$REDIS_PASSWORD")
+APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m "$MASTER_PASS" -p "$APP_PASSWORD")
 
 MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed '2,$ s/^/    /')
 APPLICATION_PROPERTIES=$(echo "${APPLICATION_PROPERTIES}" | sed '2,$ s/^/    /')
