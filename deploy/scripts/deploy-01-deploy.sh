@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT=testjenkins
+PROJECT=$PROJECT_NAME
 IMAGE="${DOCKER_REGISTRY}/${IMAGE_FULL_NAME}"
 
 awk -v project="$PROJECT" -v image="$IMAGE" -v masterPass="$MASTER_PASS" '
@@ -11,9 +11,6 @@ awk -v project="$PROJECT" -v image="$IMAGE" -v masterPass="$MASTER_PASS" '
     print;
 }' ${PROJECT_PATH}deploy/deployment.yaml > deployment.yaml
 
-echo "El deployment.yaml"
-cat deployment.yaml
-
-kubectl set env deployment/testjenkins JASYPT_ENCRYPTOR_PASSWORD=$MASTER_PASS
-
 kubectl apply -f deployment.yaml
+
+rm deployment.yaml

@@ -7,6 +7,7 @@ pipeline {
         COMMIT_HASH = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
         IMAGE_TAG = "${env.BUILD_NUMBER}-${COMMIT_HASH}"
         IMAGE_FULL_NAME = "${IMAGE_NAME}:${IMAGE_TAG}"
+        PROJECT_NAME = "testjenkins"
         PROJECT_PATH = ""
     }
 
