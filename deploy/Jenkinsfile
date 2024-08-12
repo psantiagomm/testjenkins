@@ -28,9 +28,6 @@ pipeline {
             }
         }
         stage('Deploy to Kubernetes') {
-			environment {
-                TESTJENKINS_MATER_PASS = credentials('TESTJENKINS_MATER_PASS') // ID de la credencial del secreto
-            }
             steps {
                 withCredentials([string(credentialsId: 'TESTJENKINS_MATER_PASS', variable: 'MASTER_PASS')]) {
 

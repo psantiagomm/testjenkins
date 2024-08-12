@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Update configmap') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'TESTJENKINS_MATER_PASS', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER')]) {
+                withCredentials([string(credentialsId: 'TESTJENKINS_MATER_PASS', variable: 'MASTER_PASS')]) {
                     // Ejecuta el script .sh con la credencial en el entorno
                     sh '''
                         #!/bin/bash
