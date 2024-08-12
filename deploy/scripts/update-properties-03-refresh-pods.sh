@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Actualizando los pods..."
 # Nombre del Deployment
-DEPLOYMENT_NAME="testjenkins"
+DEPLOYMENT_NAME=$PROJECT_NAME
 # Espacio de nombres (namespace), si no está en el default
 NAMESPACE="default"
 # Ruta del endpoint al que quieres enviar la petición
