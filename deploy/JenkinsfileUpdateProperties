@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        PROJECT_NAME = "testjenkins"
+        PROJECT_PATH = ""
+    }
+
     stages {
         stage('Update configmap') {
             steps {
