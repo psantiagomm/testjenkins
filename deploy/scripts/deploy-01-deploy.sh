@@ -1,12 +1,17 @@
 #!/bin/bash
 
-sed -i "s|image: testjenkins:.*|image: ${DOCKER_REGISTRY}/${IMAGE_FULL_NAME}|" deploy/deployment.yaml
+PROJECT=testjenkins
+IMAGE="${DOCKER_REGISTRY}/${IMAGE_FULL_NAME}"
 
-cat deploy/deployment.yaml
+awk -v project="$PROJECT" -v image="$IMAGE" -v masterPass="$MASTER_PASS" '
+{
+    gsub(/{{PROJECT}}/, project);
+    gsub(/{{IMAGE}}/, image);
+    gsub(/{{MASTER_PASS}}/, masterPass);
+    print;
+}' ${PROJECT_PATH}deploy/deployment.yaml > deployment.yaml
 
-echo "Se configura JASYPT_ENCRYPTOR_PASSWORD"
-echo $MASTER_PASS;
+echo "El deployment.yaml"
+cat deployment.yaml
 
-kubectl set env deployment/testjenkins JASYPT_ENCRYPTOR_PASSWORD=$MASTER_PASS
-
-kubectl apply -f deploy/deployment.yaml
+kubectl apply -f deployment.yaml

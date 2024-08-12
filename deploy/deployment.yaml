@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testjenkins
+  name: {{PROJECT}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: testjenkins
+      app: {{PROJECT}}
   template:
     metadata:
       labels:
-        app: testjenkins
+        app: {{PROJECT}}
     spec:
       volumes:
         - name: config-volume
           configMap:
-            name: testjenkins
+            name: {{PROJECT}}
       containers:
-        - name: testjenkins
-          image: testjenkins:latest
+        - name: {{PROJECT}}
+          image: {{IMAGE}}
           command: ["java"]
-          args: ["-jar", "app.jar", "--spring.config.additional-location=file:///config/", "--spring.profiles.active=dev", "--jasypt.encryptor.password=${JASYPT_ENCRYPTOR_PASSWORD}"]
+          args: ["-jar", "app.jar", "--spring.config.additional-location=file:///config/", "--spring.profiles.active=dev", "--jasypt.encryptor.password={{MASTER_PASS}}"]
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
@@ -35,13 +35,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: testjenkins
+  name: {{PROJECT}}
 spec:
   type: NodePort
   selector:
-    app: testjenkins
+    app: {{PROJECT}}
   ports:
-    - port: 8081
+    - port: 8082
       targetPort: 8080
       protocol: TCP
-      nodePort: 30001
+      nodePort: 30002

@@ -7,6 +7,7 @@ pipeline {
         COMMIT_HASH = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
         IMAGE_TAG = "${env.BUILD_NUMBER}-${COMMIT_HASH}"
         IMAGE_FULL_NAME = "${IMAGE_NAME}:${IMAGE_TAG}"
+        PROJECT_PATH = ""
     }
 
     stages {
@@ -44,7 +45,19 @@ pipeline {
                 TESTJENKINS_MATER_PASS = credentials('TESTJENKINS_MATER_PASS') // ID de la credencial del secreto
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'TESTJENKINS_MATER_PASS', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER')]) {
+                withCredentials([string(credentialsId: 'TESTJENKINS_MATER_PASS', variable: 'MASTER_PASS')]) {
+
+                    sh '''
+                    echo "La contraseña desenmascarada es: $MASTER_PASS"
+                    '''
+                    sh '''
+                    echo "La contraseña desenmascarada es:"
+                    echo "$MY_SECRET" > password.txt
+                    '''
+                    sh '''
+                    cat password.txt
+                    '''
+
                     // Ejecuta el script .sh con la credencial en el entorno
                     sh '''
                         #!/bin/bash
