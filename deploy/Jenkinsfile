@@ -11,19 +11,6 @@ pipeline {
     }
 
     stages {
-        stage('Approval') {
-            steps {
-                script {
-                    def approver = input(
-                        message: 'Do you want to proceed?',
-                        ok: 'Yes',
-                        submitter: 'admin'
-                    )
-
-                    echo "Approved by: ${approver}"
-                }
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
