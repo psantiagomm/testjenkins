@@ -14,7 +14,7 @@ awk -v project="$PROJECT" \
   -v messages_properties="$MESSAGES_PROPERTIES" \
   -v resilience_properties="$RESILIENCE_PROPERTIES" \
   -v app_password="$APP_PASSWORD" \
-  -v redis_password=$REDIS_PASSWORD" '
+  -v redis_password="$REDIS_PASSWORD" '
 {
     gsub(/{{PROJECT}}/, project);
     gsub(/{{APPLICATION_PROPERTIES}}/, application_properties);
