@@ -1,11 +1,13 @@
 #!/bin/bash
 
+source ./deploy/scripts/functions.sh
+
 PROJECT=$PROJECT_NAME
 
 REDIS_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m "$MASTER_PASS" -p "$REDIS_PASSWORD")
 APP_PASSWORD=$(sh ./deploy/scripts/encrypt.sh -m "$MASTER_PASS" -p "$APP_PASSWORD")
 
-MESSAGES_PROPERTIES=$(echo "$MESSAGES_PROPERTIES" | sed '2,$ s/^/    /')
+MESSAGES_PROPERTIES=$(sh ./deploy/scripts/normalizeLines.sh "$MESSAGES_PROPERTIES")
 APPLICATION_PROPERTIES=$(echo "${APPLICATION_PROPERTIES}" | sed '2,$ s/^/    /')
 RESILIENCE_PROPERTIES=$(echo "${RESILIENCE_PROPERTIES}" | sed '2,$ s/^/    /')
 

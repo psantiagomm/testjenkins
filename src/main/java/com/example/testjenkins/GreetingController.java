@@ -23,9 +23,6 @@ public class GreetingController {
 	@Value("${greeting.template}")
 	private String template;
 	
-	@Value("${JASYPT_ENCRYPTOR_PASSWORD}")
-	private String jasyptPass;
-	
 	@Value("${show.properties.contains}")
 	private List<String> showProperties;
 	
@@ -45,7 +42,6 @@ public class GreetingController {
 	@GetMapping("/env")
 	public Map<String, String> env() {
 		Map<String, String> properties = new HashMap<>();
-		properties.put("jasyptPass", jasyptPass);
 		properties.put("app.message", messages.getKey("app.message"));
 		properties.put("app.message.override", messages.getKey("app.message.override"));
 		
