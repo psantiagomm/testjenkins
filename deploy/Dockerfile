@@ -13,30 +13,17 @@ RUN mvn -B package -DskipTests
 
 # Etapa de ejecución
 # Imagen base de Java
-FROM amazoncorretto:22-alpine
-USER root
+FROM amazoncorretto:21
 
-# Instalar 'file' para herramientas adicionales si es necesario
-RUN apk update && apk add --no-cache file recode
+VOLUME /tmptestjenkins
 
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+WORKDIR /app/
 
-VOLUME /tmp
-
-WORKDIR /app
-
-
+# Copia el archivo JAR al contenedor
 COPY --from=build /app/target/*.jar /app/app.jar
-
-#COPY watcher.sh .
 
 # Puerto en el que escucha el servicio
 EXPOSE 8080
-
-# Instalación de paquetes adicionales
-#RUN apk add --no-cache inotify-tools
-#RUN apk add --no-cache wget
 
 #microservicio cuando se ejecute el contenedor
 CMD ["java", "-jar", "app.jar"]
