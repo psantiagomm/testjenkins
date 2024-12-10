@@ -9,7 +9,7 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     Integer findLatest();
 
     @Query("SELECT COUNT(a) FROM Animal a")
-    Long findTotalAnimals();
+    Integer findTotalAnimals();
     
 	@Query("SELECT a.name FROM Animal a WHERE a.id = (SELECT MAX(a2.id) FROM Animal a2)")
 	String findLatestAnimalName();

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class AnimalStatistics {
-	private long totalAnimals;
-	private long maxId;
+	private Integer totalAnimals;
+	private Integer maxId;
 	private String maxIdName;
 }

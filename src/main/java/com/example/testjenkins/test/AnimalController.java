@@ -27,9 +27,11 @@ public class AnimalController {
         
         statistics.setTotalAnimals(animalRepository.findTotalAnimals());
         statistics.setMaxId(animalRepository.findLatest());
-        Animal latestAnimal = animalRepository.findById(statistics.getMaxId()).orElse(null);
-        if(latestAnimal != null) {
-            statistics.setMaxIdName(latestAnimal.getName());        	
+        if(statistics.getMaxId() != null) {
+            Animal latestAnimal = animalRepository.findById(statistics.getMaxId().longValue()).orElse(null);
+            if(latestAnimal != null) {
+                statistics.setMaxIdName(latestAnimal.getName());        	
+            }
         }
 
         return ResponseEntity.ok(statistics);
